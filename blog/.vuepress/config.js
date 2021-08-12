@@ -11,7 +11,7 @@ module.exports = ctx => ({
     }
   },
   head: [
-    ['link', { rel: 'icon', href: `/logo.png` }],
+    ['link', { rel: 'icon', href: `/hero.jpg` }],
     ['link', { rel: 'manifest', href: '/manifest.json' }],
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
@@ -23,7 +23,10 @@ module.exports = ctx => ({
   ],
   theme: '',
   themeConfig: {
-    repo: 'jaiden-home/blog',
+    repo: 'jaiden-home',
+    docsRepo: 'jaiden-home/www',
+    docsDir: 'blog',
+    docsBranch: 'master',
     editLinks: true,
     smoothScroll: true,
     locales: {

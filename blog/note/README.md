@@ -160,3 +160,154 @@ var obs = new Observer()
 sub.attach(obs) // 绑定观察关系
 ```
 
+
+
+## 学习Promise
+
+### 用法介绍
+
+#### 1). Promise.prototype.then() 实例方法
+
+```js
+const promise1 = new Promise((resolve, reject) => {
+  resolve('Success!');
+});
+
+promise1.then((value) => {
+  console.log(value);
+  // expected output: "Success!"
+});
+```
+
+#### 2). Promise.prototype.catch() 实例方法
+
+```js
+const promise1 = new Promise((resolve, reject) => {
+  reject('reason!');
+});
+
+promise1.catch((error) => {
+  console.log(error);
+  // expected output: "reason!"
+});
+```
+
+#### 3). Promise.prototype.finally() 实例方法
+
+由于无法知道`promise`的最终状态，所以`finally`的回调函数中不接收任何参数，它仅用于无论最终结果如何都要执行的情况。
+
+```js
+const promise1 = new Promise((resolve, reject) => {
+  resolve('Success!');
+});
+
+promise1.then((value) => {
+  console.log(value);
+}).catch((error) => {
+  console.log(error);
+}).finally(function() { 
+  console.log('finally');
+});;
+```
+
+#### 4). Promise.reject(reason) 静态方法
+
+reason 表示Promise被拒绝的原因。
+
+```js
+Promise.reject(new Error('fail')).then(function(result) {
+    console.log('Resolved');
+}, function(err) {
+    console.error(err);// expected output: Error: fail
+});
+```
+
+#### 5). Promise.resolve(value) 静态方法
+
+value将被Promise对象解析的参数，也可以是一个Promise对象，或者是一个thenable。
+
+```js
+const promise1 = Promise.resolve(123);
+promise1.then((value) => {
+    console.log(value); // expected output: 123
+});
+```
+
+#### 6). Promise.race() 静态方法
+
+race 函数返回一个 Promise，取决于最快完成的Promise完成结果, 如果迭代包含一个或多个非Promise值或非等待太的Promise，则将解析为迭代中找到的第一个值。
+
+```js
+var p5 = new Promise(function(resolve, reject) {
+    setTimeout(resolve, 500, "five");
+});
+var p6 = new Promise(function(resolve, reject) {
+    setTimeout(reject, 100, "six");
+    // setTimeout第三个及以后的参数都可以作为回调函数的参数
+});
+Promise.race([p5, p6]).then(function(value) {
+    console.log(value) // 未被调用
+}, function(reason) {
+    console.log(reason); // p6 更快，所以它失败了
+});
+```
+
+#### 7). Promise.any() 静态方法
+
+返回第一个 `promise` 成功结果。如果可迭代对象中没有一个 `promise` 成功,就返回一个失败的 `promise `和AggregateError类型的实例.
+
+```js
+const pErr = new Promise((resolve, reject) => {
+  reject('总是失败');
+});
+
+Promise.any([pErr]).catch((err) => {
+    console.log(err);
+    // "AggregateError: No Promise in Promise.any was resolved"
+})
+
+```
+
+#### 8). Promise.all() 静态方法
+
+这个方法和`Promise.any`是相反的,如果传入的 promise 中有一个失败（rejected），结果给失败状态的回调函数，而不管其它 promise 是否完成。否则返回所有promise 成功的结果。
+
+```js
+const promise1 = Promise.resolve(3);
+const promise2 = 42;
+const promise3 = new Promise((resolve, reject) => {
+   setTimeout(resolve, 100, 'foo');
+});
+Promise.all([promise1, promise2, promise3]).then((values) => {
+    console.log(values); // expected output: Array [3, 42, "foo"]
+});
+```
+
+####  Promise.allSettled() 静态方法
+
+每一个 promise 已经完成以后，返回promise的`结果对象` 。每个`结果对象`，都有一个 `status` 字符串。
+
+如果它的值为 `fulfilled`，则结果对象上存在一个 `value` 。
+
+如果值为 `rejected`，则存在一个 `reason` 。
+
+```js
+const promise1 = Promise.resolve(3);
+const promise2 = new Promise((resolve, reject) => setTimeout(reject, 100, 'foo'));
+const promises = [promise1, promise2];
+
+Promise.allSettled(promises).then((results) => {
+    console.log(results)
+    // [{"status":"fulfilled","value":3},{"status":"rejected","reason":"foo"}]
+});
+```
+
+
+
+### 源码解析
+
+Promise的polyfill源码解析遵守：[Promise A+ 规范 ](https://promisesaplus.com/ )
+
+```js
+```
+

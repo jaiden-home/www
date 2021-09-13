@@ -235,7 +235,7 @@ promise1.then((value) => {
 
 #### 6). Promise.race() 静态方法
 
-race 函数返回一个 Promise，取决于最快完成的Promise完成结果, 如果迭代包含一个或多个非Promise值或非等待太的Promise，则将解析为迭代中找到的第一个值。
+race 函数返回一个 Promise，取决于最快完成的Promise完成结果, 如果迭代包含一个或多个非Promise值或非等待态的Promise，则将解析为迭代中找到的第一个值。
 
 ```js
 var p5 = new Promise(function(resolve, reject) {
@@ -308,6 +308,180 @@ Promise.allSettled(promises).then((results) => {
 
 Promise的polyfill源码解析遵守：[Promise A+ 规范 ](https://promisesaplus.com/ )
 
+###### 简版Promise
+
 ```js
+class Promise {
+    constructor(executor) {
+        this.status = 'PENDING';
+        this.onFulfilledCallbacks = [];
+        this.onRejectedCallbacks = [];
+        const resolve = (value) => {
+            if (this.status !== 'PENDING') return;
+            this.status = 'RESOLVED';
+            this.value = value;
+            this.onFulfilledCallbacks.forEach(fn => fn(this.value))
+        };
+        const reject = (reason) => {
+            if (this.status !== 'PENDING') return;
+            this.status = 'REJECTED';
+            this.reason = reason;
+            this.onRejectedCallbacks.forEach(fn => fn(this.reason))
+        };
+        executor(resolve, reject);
+    }
+
+    then(onFulfilled, onRejected) {
+        if (this.status === 'RESOLVED') {
+            onFulfilled(this.value)
+        } else if (this.status === 'REJECTED') {
+            onRejected(this.reason)
+        } else {
+            this.onFulfilledCallbacks.push(onFulfilled);
+            this.onRejectedCallbacks.push(onRejected);
+        }
+    }
+}
+```
+
+
+
+###### 符合Promise A+规范：
+
+```js
+//  成功
+const RESOLVED = 'RESOLVED';
+//  失败
+const REJECTED = 'REJECTED';
+// 等待
+const PENDING = 'PENDING';
+
+
+const resolvePromise = (newPromise, x, resolve, reject) => {
+    let flag
+    if (newPromise === x) {
+        return reject(new TypeError('Chaining cycle detected for promise #<Promise>'))
+    }
+    if ((typeof x === 'object' && x !== null) || typeof x === 'function') {
+        try {
+            let then = x.then;
+            if (typeof then === 'function') {
+                then.call(
+                    x,
+                    y => {
+                        /*
+                        * 是promise则只能改变一次状态
+                        * 所以只能防止多次被调用加一个状态值
+                        * */
+                        if (flag) return;
+                        flag = true;
+                        resolvePromise(newPromise, y, resolve, reject)
+                    },
+                    e => {
+                        if (flag) return;
+                        flag = true
+                        reject(e)
+                    }
+                )
+            } else {
+                resolve(x)
+            }
+        } catch (e) {
+            if (flag) return;
+            flag = true
+            reject(e)
+        }
+    } else {
+        resolve(x)
+    }
+}
+
+class Promise {
+    constructor(executor) {
+        this.status = PENDING;
+        this.value = undefined;
+        this.reason = undefined;
+        this.onResolvedCallbacks = [];
+        this.onRejectedCallbacks = [];
+        const resolve = (value) => {
+            if (this.status === PENDING) {
+                this.status = RESOLVED;
+                this.value = value;
+                this.onResolvedCallbacks.forEach(fn => fn())
+            }
+        };
+        const reject = (reason) => {
+            if (this.status === PENDING) {
+                this.status = REJECTED;
+                this.reason = reason;
+                this.onRejectedCallbacks.forEach(fn => fn())
+            }
+        };
+        try {
+            executor(resolve, reject); // 执行
+        } catch (err) {
+            reject(err);
+        }
+    }
+
+    then(onFulfilled, onRejected) {
+        onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : v => v;
+        onRejected = typeof onRejected === 'function'
+            ? onRejected
+            : e => {
+                throw e
+            };
+        // then之后需要一个新的promise
+        const newPromise = new Promise((resolve, reject) => {
+            if (this.status === RESOLVED) {
+                setTimeout(() => {
+                    try {
+                        let x = onFulfilled(this.value);
+                        resolvePromise(newPromise, x, resolve, reject);
+                    } catch (err) {
+                        reject(err)
+                    }
+                })
+            }
+
+            if (this.status === REJECTED) {
+                setTimeout(() => {
+                    try {
+                        let x = onRejected(this.reason)
+                        resolvePromise(newPromise, x, resolve, reject);
+                    } catch (err) {
+                        reject(err)
+                    }
+                })
+            }
+
+            if (this.status === PENDING) {
+                // 收集 onFulfilled
+                this.onResolvedCallbacks.push(() => {
+                    setTimeout(() => {
+                        try {
+                            let x = onFulfilled(this.value)
+                            resolvePromise(newPromise, x, resolve, reject);
+                        } catch (err) {
+                            reject(err)
+                        }
+                    })
+                });
+                // 收集 onRejected
+                this.onRejectedCallbacks.push(() => {
+                    setTimeout(() => {
+                        try {
+                            let x = onRejected(this.reason)
+                            resolvePromise(newPromise, x, resolve, reject);
+                        } catch (err) {
+                            reject(err)
+                        }
+                    })
+                });
+            }
+        })
+        return newPromise
+    }
+}
 ```
 

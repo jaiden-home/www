@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>JavaScript 解析器 | Jaiden</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="/hero.jpg">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon-152x152.png">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#3eaf7c">
+    <meta name="description" content="程序员 web前端开发">
+    <meta name="theme-color" content="#3eaf7c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="msapplication-TileImage" content="/icons/msapplication-icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#000000">
+    
+    <link rel="preload" href="/assets/css/0.styles.770e0af4.css" as="style"><link rel="preload" href="/assets/js/app.6b7621a6.js" as="script"><link rel="preload" href="/assets/js/3.8aa8f030.js" as="script"><link rel="preload" href="/assets/js/10.9bd0053b.js" as="script"><link rel="preload" href="/assets/js/5.0f050ebd.js" as="script"><link rel="prefetch" href="/assets/js/11.415ac5de.js"><link rel="prefetch" href="/assets/js/12.668b98d1.js"><link rel="prefetch" href="/assets/js/13.d8d4dc5d.js"><link rel="prefetch" href="/assets/js/14.8179fe11.js"><link rel="prefetch" href="/assets/js/15.7179d332.js"><link rel="prefetch" href="/assets/js/16.157eb7d7.js"><link rel="prefetch" href="/assets/js/17.3f7ade6a.js"><link rel="prefetch" href="/assets/js/4.cb6a11ed.js"><link rel="prefetch" href="/assets/js/6.bad26671.js"><link rel="prefetch" href="/assets/js/7.c0d3b7ce.js"><link rel="prefetch" href="/assets/js/8.ce56086d.js"><link rel="prefetch" href="/assets/js/9.c84cf853.js"><link rel="prefetch" href="/assets/js/vendors~flowchart.24e7f86f.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.770e0af4.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">Jaiden</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/note/" class="nav-link router-link-active">
+  笔记
+</a></div><div class="nav-item"><a href="/courseware/" class="nav-link">
+  课件
+</a></div><div class="nav-item"><a href="/resources/" class="nav-link">
+  学习资源
+</a></div> <a href="https://github.com/jaiden-home" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/note/" class="nav-link router-link-active">
+  笔记
+</a></div><div class="nav-item"><a href="/courseware/" class="nav-link">
+  课件
+</a></div><div class="nav-item"><a href="/resources/" class="nav-link">
+  学习资源
+</a></div> <a href="https://github.com/jaiden-home" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>目录大纲</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/note/" aria-current="page" class="sidebar-link">目录</a></li><li><a href="/note/ECMAScriptInterpreter.html" aria-current="page" class="active sidebar-link">JavaScript 解析器</a></li><li><a href="/note/EventLoop.html" class="sidebar-link">事件循环（Event Loop）</a></li><li><a href="/note/BitOperation.html" class="sidebar-link">二进制原理（Bit Operation）</a></li><li><a href="/note/OOP.html" class="sidebar-link">面向对象（oop）</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="javascript-解析器"><a href="#javascript-解析器" class="header-anchor">#</a> JavaScript 解析器</h1> <p><code>定义:</code> <strong>JavaScript(JS) or ECMAScript 是一种具有函数优先，解释型编程语言，它由事件与对象驱动，支持面向过程，面向对象，命令式和声明式编程。</strong></p> <h4 id="内存模型"><a href="#内存模型" class="header-anchor">#</a> 内存模型</h4> <p>js引擎(JavaScriptCore)，在解析语法后，其内存模型分为5个区：</p> <ul><li>栈区：存放函数的参数值、局部变量等。</li> <li>堆区：引用类型，包含 function ，new 操作，不包含字面量声明。</li> <li>静态区：全局变量和静态变量。</li> <li>常量区：常量存储在这里。</li></ul> <h4 id="解析器工作流"><a href="#解析器工作流" class="header-anchor">#</a> 解析器工作流</h4> <p><img src="/assets/img/JSWorkflowEngine.7be10742.png" alt="引擎工作流"></p> <p>javaScript 并不需要编译，代码的执行可以分成这几个步骤：</p> <ol><li>字符串Javascript代码加载</li> <li>词法分析器，生成tokens，产生作用域</li> <li>语法分析，基于tokens生成语法树，产生作用域链</li> <li>执行环境初始化</li> <li>开始执行stack(栈)</li></ol> <p>下面的代码程序是如何运行的？</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">var</span> f<span class="token punctuation">;</span><span class="token keyword">function</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token keyword">var</span> a<span class="token punctuation">}</span><span class="token punctuation">;</span><span class="token keyword">function</span> <span class="token function">a</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+</code></pre></div><p>首先引擎会先将上面的代码生成下面的语法树 (ps:简化版伪代码)</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token punctuation">{</span>
+    <span class="token literal-property property">scope_chain</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">[</span>global_scope_chain<span class="token punctuation">]</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">program</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+            <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">'VariableDeclaration'</span><span class="token punctuation">,</span>
+            <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">'Identifier'</span><span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'f'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token literal-property property">tokens</span><span class="token operator">:</span> <span class="token punctuation">{</span> 
+                <span class="token literal-property property">start</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> 
+                <span class="token literal-property property">end</span><span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">,</span>
+                <span class="token literal-property property">scope_chain</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">[</span>VariableDeclarator<span class="token punctuation">.</span>f<span class="token operator">:</span> <span class="token keyword">undefined</span><span class="token punctuation">]</span> <span class="token punctuation">]</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span>
+            <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">'FunctionDeclaration'</span><span class="token punctuation">,</span>
+            <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">'Identifier'</span><span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'f'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token literal-property property">tokens</span><span class="token operator">:</span> <span class="token punctuation">{</span>  
+                <span class="token literal-property property">start</span><span class="token operator">:</span> <span class="token number">7</span><span class="token punctuation">,</span> 
+                <span class="token literal-property property">end</span><span class="token operator">:</span> <span class="token number">25</span><span class="token punctuation">,</span>
+                <span class="token literal-property property">scope_chain</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">[</span>reference_global_scope_chain<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token literal-property property">a</span><span class="token operator">:</span> <span class="token keyword">undefined</span> <span class="token punctuation">]</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span>
+            <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">'FunctionDeclaration'</span><span class="token punctuation">,</span>
+            <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">'Identifier'</span><span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'a'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token literal-property property">tokens</span><span class="token operator">:</span> <span class="token punctuation">{</span>  
+                <span class="token literal-property property">start</span><span class="token operator">:</span> <span class="token number">27</span><span class="token punctuation">,</span> 
+                <span class="token literal-property property">end</span><span class="token operator">:</span> <span class="token number">45</span><span class="token punctuation">,</span>
+                <span class="token literal-property property">scope_chain</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">[</span>reference_global_scope_chain<span class="token punctuation">]</span> <span class="token punctuation">]</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+	<span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>一个变量只在一定范围内可以使用，这个范围我们称之: <strong>作用域</strong>。</p> <p>javaScript采用了词法作用域，函数体内的变量的作用域是在函数定义时候确定的。也就是说函数体内的局部变量是在词法解析的时候确定的。我们把保存函数体内局部变量的对象叫: <strong>变量对象 VO（Variable Object）</strong>。</p> <p>局部变量以外还有一个全局对象，在最外层，我们把这个对象叫做: <strong>全局对象 GO (Global Object)</strong>。</p> <p>当函数被调用时，都会创建一个新的对象来保存当前函数的局部变量的值，把这个新的对象叫做：<strong>活动对象 AO（Activation Object）</strong>。</p> <p>在语法解析的时候，嵌套的函数的AO有个一个引用关系，类似一个链表结构，表头就是GO，当函数被调用时AO会加入在表尾。函数执行后若没有被第三方引用AO，那么AO将被GC回收。这种引用链关系我们叫它： <strong>作用域链</strong>。</p> <p>每一个函数体内都包含着自己的作用域链表，这种函数包含自身作用域链表的行为，我们称之为：<strong>闭包</strong>。（ps:从这个角度看所有的函数都有闭包，函数返回函数只是闭包的使用方法而已）。</p> <p><strong>代码实解：</strong></p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">// 1)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span> <span class="token comment">// undefined</span>
+<span class="token keyword">var</span> f
+</code></pre></div><ol><li>打印在前，声明在后，程序并没有抛出异常，原因都知道是：<strong>变量提升</strong>；那这个提升的原理就是：javaScript引擎在词法解析的时候已经确定了作用域。所以在运行打印的时候并不会抛错。</li></ol> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">// 2)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span> <span class="token comment">// [Function: f]</span>
+
+<span class="token keyword">function</span> <span class="token function">f</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">var</span> f <span class="token operator">=</span> <span class="token keyword">undefined</span>
+</code></pre></div><ol start="2"><li>打印出来是一个方法（[Function: f]），而不是undefined，原因都知道是<strong>变量声明</strong>的优先级大于<strong>函数声明</strong>；那这个优先级大的原理就是：javaScript引擎在词法解析的时候并不会将方法f当变量解析，而是当做函数声明，接下来当代码执行时，会创建AO，并将方法f挂载在AO下，所以打印出来是一个方法（[Function: f]）</li></ol> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">// 3)</span>
+<span class="token keyword">var</span> f <span class="token operator">=</span> <span class="token keyword">undefined</span>
+<span class="token keyword">function</span> <span class="token function">f</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span> <span class="token comment">// undefined</span>
+</code></pre></div><ol start="3"><li>打印出来是undefined，原因都知道是<strong>声明操作</strong>的优先级大于<strong>赋值操作</strong>；那这个原因其实就是：var f 就是在VO 对象下声明了一个f等于undefined，接下来当代码执行时，会创建AO，并将方法f挂载在AO下，此时f是function，然后又对AO对象的f进行了赋值成undefined，所以最后的结果就是undefined。</li></ol> <h4 id="内存的管理"><a href="#内存的管理" class="header-anchor">#</a> 内存的管理</h4> <p>​	标记清除：</p> <p>这是javascript中最常用的垃圾回收方式。当变量进入执行环境是，就标记这个变量为“进入环境”。从逻辑上讲，永远不能释放进入环境的变量所占用的内存，因为只要执行流进入相应的环境，就可能会用到他们。当变量离开环境时，则将其标记为“离开环境”。</p> <p>垃圾收集器在运行的时候会给存储在内存中的所有变量都加上标记。然后，它会去掉环境中的变量以及被环境中的变量引用的标记。而在此之后再被加上标记的变量将被视为准备删除的变量，原因是环境中的变量已经无法访问到这些变量了。最后。垃圾收集器完成内存清除工作，销毁那些带标记的值，并回收他们所占用的内存空间。</p></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/jaiden-home/www/edit/master/blog/note/ECMAScriptInterpreter.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">2/8/2023, 6:28:45 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/note/" class="prev router-link-active">
+        目录
+      </a></span> <span class="next"><a href="/note/EventLoop.html">
+        事件循环（Event Loop）
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.6b7621a6.js" defer></script><script src="/assets/js/3.8aa8f030.js" defer></script><script src="/assets/js/10.9bd0053b.js" defer></script><script src="/assets/js/5.0f050ebd.js" defer></script>
+  </body>
+</html>

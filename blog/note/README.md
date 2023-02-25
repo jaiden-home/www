@@ -1,4 +1,4 @@
-# 目录
+# 指南
 
 * JavaScript 引擎(ECMAScript Engine)
   * [JavaScript 解析器(ECMAScript Interpreter)](./ECMAScriptInterpreter)

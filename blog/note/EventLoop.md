@@ -6,6 +6,12 @@
 
 
 
+#### 消息机制
+
+​	 JavaScript 是单线程的，它的消息机制和其它语言截然不同。采用了消息队列是一种异步通信方式，允许与多个进程之间发送和接收消息。通过 IPC 机制来实现数据共享、进程协作等功能。比如：JavaScript网络请求，就是JavaScript进程调用Network进程完成，然后由network完成网络请求，通过消息机制发送给JavaScript 处理。
+
+
+
 #### Event Loop 工作模式
 
 ![Event Loop](./../.vuepress/images/event-loop.png)
@@ -30,21 +36,19 @@ while (queue.waitForMessage()) {
 
 #### 事件循环步骤
 
-​	由**事件循环**驱动着每个步骤。事件循环负责收集用事件（包括用户事件）、对任务进行排队以便在合适的时候执行回调。然后它执行所有处于等待中的 JavaScript 任务（宏任务），然后是微任务，然后在开始下一次循环之前执行一些必要的渲染和绘制操作。
+​	由**事件循环**驱动着每个步骤。事件循环负责收集用事件（包括用户事件）、对任务进行排队以便在合适的时候执行回调。然后它执行所有处于等待中的 JavaScript 任务（宏任务），然后在开始下一次循环之前执行一些必要的渲染和绘制操作。
 
-1. 同步代码执行完，清空当前执行栈；
-2. 执行微任务之前；
-3. 执行微任务队列的任务，并清空当前所有微任务；
-4. 下一次循环之前的一些必要执行；
-5. UI渲染之前 (浏览器特有：**requestAnimationFrame**)；
-6. UI渲染之后  (浏览器特有：**requestIdleCallback** )；
-7. 处理最先进入消息队列的消息（宏任务），处理宏任务会反复上面的步骤，直到清空消息队列。然后等待异步任务（异步任务完成的消息），再继续重复执行；
+1. 任务的同步代码执行完，清空当前执行栈；
+2. 执行微任务队列，并清空当前所有微任务；
+3. 处理下个任务，重复上面步骤，直到本任务阶段所有任务处理完成；
+4. 处理下个阶段，重复上面步骤，直到所有阶段都完成，一次事件循环完成；
+5. 下一次事件循环之前的一些必要执行，开启下一次循环；
 
 
 
 #### 什么是微任务 Micro Task？
 
-​	例如`Promise.then`中切换**执行上下文**这种任务就是微任务。**事件循环**会依次执行由系统推进消息任务(宏任务)。但是有些场景，比如`Promise.then`还是需要将某些函数帧(微任务)，延迟到当前**执行上下文栈**清空后再执行。所以这就要依赖**事件循环**编排这些微任务(函数帧)，不能依赖系统消息机制。这些微任务(函数帧)是一个 FIFO 队列叫它**微任务队列**。
+​	例如`Promise.then`中切换**执行上下文**这种任务就是微任务。**事件循环**会依次执行由系统推进消息任务(宏任务)。但是有些场景，比如`Promise.then`还是需要将某些函数帧(微任务)，延迟到当前**执行上下文栈**清空后再执行。所以这就要依赖**事件循环**编排这些微任务(函数帧)。这些微任务(函数帧)是一个 FIFO 队列叫它**微任务队列**。
 
 
 
@@ -117,12 +121,39 @@ while (queue.waitForMessage()) {
 
   ​	计时器是指：在指定`阈值`时间后触发回调的任务。工作线程(系统)在到达时间后，将回调任务添加到**事件循环队列**的`timers`阶段，等待**事件循环**进入该阶段来执行。但是指定触发的时间，不是执行时间。等到**事件循环**处理到该回调的时候，此时才是确切的触发时间。中间可能遇到有其他的调度或其它正在运行的回调。这都会延迟长触发时间。
 
-* `nextTick()`
+* `nextTick()`您可能已经注意到 `process.nextTick()` 在图示中是一个微任务，它也是一个微任务队列，在同步代码执行完，立即执行，尽管它叫nextTick；
 
-  ​	您可能已经注意到 `process.nextTick()` 在图示中是一个微任务，它在同步代码执行完，立即执行，尽管它叫nextTick；
+  * 允许它递归调用，所以它能**阻止事件循环**到达轮询阶段；
 
-  * `process.nextTick()`其实它不是事件循环的一部分。它要优于其他微任务先执行。
-  * 当前执行栈清空后就会立即执行 `process.nextTick()`，允许它递归调用，所以它能**阻止事件循环**到达轮询阶段；
+  * `process.nextTick()`拥有一个nextTick微任务队列，也就是说微任务队列在`Node.js` 中有两种。nextTick在当前执行栈清空后立即执行，它要比其他微任务队列更快，在其他微任务队列前执行；
+
+  * 执行栈清空后立即执行,就会在微任务之前执行；不在执行栈清空后执行,就会在微任务队列清空后执行；
+
+    ```js
+    // 执行栈清空后立即执行,就会在微任务之前
+    queueMicrotask(() => {
+      console.log(1)
+    });
+    
+    process.nextTick(() => {
+      console.log(2)
+    });
+    // 2 1
+    
+    // 不在执行栈清空后执行,就会在微任务队列清空之后
+    queueMicrotask(() => {
+      queueMicrotask(() => {
+        console.log(1)
+      });
+    });
+    
+    queueMicrotask(() => {
+      process.nextTick(() => {
+        console.log(2)
+      })
+    }); 
+    // 1 2
+    ```
 
 * `setImmediate()` 
 
@@ -134,10 +165,8 @@ while (queue.waitForMessage()) {
 
     1. 初始化环境，包括**事件循环队列**等；
     2. 主栈同步代码执行，执行中可能会调用异步任务，此时**工作线程**开启工作，完成后将回调添加到**事件循环队列**中。
-    3. 然后开始处理事件循环。
+    3. 然后开始处理事件循环。当setTimeout指定0，为立即触发时。**工作线程**将回调添加到**事件循环队列**中。这不是瞬时发生的，这依赖系统处理。所以会出现两种情况：
     
-    当setTimeout指定0，为立即触发时。**工作线程**将回调添加到**事件循环队列**中。这不是瞬时发生的，这依赖系统处理。所以会出现两种情况：
-
     * 主栈代码执行快于添加回调，则是setImmediate先执行。因为此时timers队列是空的；
     * 主栈代码执行慢于添加回调，则是setTimeout先执行。因为**事件循环**优先处理timers阶段；
     
@@ -172,4 +201,131 @@ while (queue.waitForMessage()) {
 
 
 
+#### 微任务方法有哪些
+
+| 方法                 | 描述                                                |
+| -------------------- | --------------------------------------------------- |
+| Promise实例方法      | Promise实例的方法都是微任务，比如then,catch,finally |
+| MutationObserver     | DOM3 Events 规范的一部分                            |
+| IntersectionObserver | 异步观察目标可见区域                                |
+| process.nextTick     | Node.js 中的方法，自己有个队列                      |
+| queueMicrotask       | ECMAScript 2019 中新增的方法                        |
+
+
+
 #### 面试题解析
+
+1. 下面代码的打印顺序，以及颜色出现的情况？
+
+   ```js
+   document.body.style.background = 'green';
+   console.log(1);
+   Promise.resolve().then(()=>{
+       console.log(2);
+       document.body.style.background ='red';
+   })
+   setTimeout(()=>{
+       console.log(3);
+       document.body.style.background ='blue';
+   })
+   console.log(4);
+   ```
+   
+
+
+
+2. 写出下面代码用户点击和直接调用的打印顺序？
+
+   ```js
+   const button = document.getElementById('btn');
+   
+   button.addEventListener("click", function(){
+   	console.log(1)
+   	Promise.resolve().then(()=>{ console.log(2) })
+   });
+   
+   button.addEventListener("click", function(){
+   	console.log(3)
+   	Promise.resolve().then(()=>{ console.log(4) })
+   });
+   
+   button.click();
+   ```
+   
+
+
+
+3. click回调是什么任务?
+
+   ```js
+   const button = document.getElementById('btn');
+   
+   button.addEventListener("click", function(){
+       console.log(1);
+       const complexTimer = Date.now();
+       while (Date.now() - complexTimer < 3000) {};
+       Promise.resolve().then(()=>{ console.log(2) })
+   });
+   
+   setTimeout(()=>{
+       console.log(3);
+   },2000)
+   
+   console.log(4);
+   ```
+   
+   click事件能卡死事件循环，所以click是宏任务；其实它是一个交互队列
+
+   
+
+4. 下面代码的打印顺序
+
+   ```js
+   console.log(1);
+   async function asyncFn (){
+       console.log(2);
+       await console.log(3);
+       console.log(4);
+   }
+   setTimeout(()=>{
+       console.log(5)
+   });
+   const promise = new Promise((resolve,reject)=>{
+       console.log(6);
+       resolve()
+   })
+   promise.then(res=>{
+       console.log(7)
+   })
+   
+   asyncFn();
+   
+   console.log(8);
+   ```
+
+   
+
+5. 下面代码的打印顺序
+
+   ```js
+   Promise.resolve().then(()=>{
+       console.log(1);
+       return new Promise((resolve)=>resolve())
+   }).then(res => {
+       console.log(2);
+   });
+   
+   Promise.resolve().then(()=>{
+   	console.log(3);
+   }).then(()=>{
+   	console.log(4);
+   }).then(()=>{
+   	console.log(5);
+   }).then(()=>{
+   	console.log(6);
+   });
+   ```
+   
+   
+   
+6. 设置了transtion动画之后，再去设置了position，为什么动画没有触发？

@@ -4,6 +4,10 @@ module.exports = [
     link: '/note/'
   },
   {
+    text: '课堂视频',
+    link: 'https://www.jaiden.cn/video_course.html'
+  },
+  {
     text: '课件',
     link: '/courseware/'
   },

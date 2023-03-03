@@ -1,4 +1,4 @@
-# JavaScript 解析器
+#  解析器(Interpreter)
 
 `定义:`  **JavaScript(JS) or ECMAScript 是一种具有函数优先，解释型编程语言，它由事件驱动，支持面向过程，面向对象，函数式编程。**
 

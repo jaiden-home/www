@@ -48,40 +48,54 @@
 
      ```js
      // 源代码
-     var f;function f(){var a};function a(){}
+     var f;function f(){var a};
      
      // 解析成抽象语法树（Abstract Syntax Tree）
      {
-         scope_chain: [ [global_scope_chain] ],
-         program: [
+         global_content:{
+             action_scope:[ global_content ],
+             scope_chain:[  [global_scope_chain] ]
+         },
+         program:[
              {
+                 id:{start:0,end:6},
                  type: 'VariableDeclaration',
-                 id: { type: 'Identifier', name: 'f' },
-                 tokens: { 
-                     start: 0, 
-                     end: 5,
-                     scope_chain: [ [VariableDeclarator.f: undefined] ]
-                 }
+                 content: {
+                     key: identifier,
+                     value: "f",
+                     status_flag: 'declare',
+                     scope_chain:[ [VariableDeclarator.f: undefined] ]
+                 },
+                 tokens:[
+                     {type: keyword, value:"var",start: 0,end:3},
+                     {type: identifier,value: "f",start: 4,end:5},
+                     {type: punctuation,value: ';', satar: 5,satar:6},
+                 ]
              },
              {
+                 id: { satar: 7, end: 28 },
                  type: 'FunctionDeclaration',
-                 id: { type: 'Identifier', name: 'f' },
-                 tokens: {  
-                     start: 7, 
-                     end: 25,
-                     scope_chain: [ [reference_global_scope_chain], a: undefined ]
+                 content:{
+                     key: identifier,
+                     value: "f",
+                     status_flag: 'execute',
+                     action_scope:[this, a:undefined, arguments],
+                     scope_chain: [ [reference_global_scope_chain], [action_scope] ]
                  }
-             },
-             {
-                 type: 'FunctionDeclaration',
-                 id: { type: 'Identifier', name: 'a' },
-                 tokens: {  
-                     start: 27, 
-                     end: 45,
-                     scope_chain: [ [reference_global_scope_chain] ]
-                 }
+                 tokens: [
+                     { type: 'Keyword', value: 'function', start: 7, end: 15 }
+                     { type: 'Identifier', value: 'f', start: 16, end: 17 }
+                     { type: 'Punctuator', value: '(', start: 17, end: 18 }
+                     { type: 'Punctuator', value: ')', start: 18, end: 19 }
+                     { type: 'Punctuator', value: '{', start: 19, end: 20 }
+                     { type: 'Keyword', value: 'var', start: 20, end: 23 }
+                     { type: 'Identifier', value: 'a', start: 24, end: 25 }
+                     { type: 'Punctuator', value: ';', start: 25, end: 26 }
+                     { type: 'Punctuator', value: '}', start: 26, end: 27 }
+                     { type: 'punctuation',value: ';', satar: 27, end:28 }
+                 ]
              }
-     	]
+         ]
      }
      ```
 
@@ -325,3 +339,15 @@ first();
 
 
 #### 面试题解析
+
+
+
+1. **怎么理解闭包，作用是什么？**
+
+   
+
+2. **javascript的作用域是怎么来的?**
+
+   
+
+3. **什么是GO,VO,AO**？

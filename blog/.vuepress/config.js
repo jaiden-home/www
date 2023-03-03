@@ -12,7 +12,7 @@ module.exports = ctx => ({
     },
     head: [
         ['link', {rel: 'icon', href: `/hero.jpg`}],
-        ['link', {rel: 'manifest', href: '/manifest.json'}],
+        // ['link', {rel: 'manifest', href: '/manifest.json'}],
         ['meta', {name: 'theme-color', content: '#3eaf7c'}],
         ['meta', {name: 'apple-mobile-web-app-capable', content: 'yes'}],
         ['meta', {name: 'apple-mobile-web-app-status-bar-style', content: 'black'}],
@@ -23,7 +23,7 @@ module.exports = ctx => ({
     ],
     theme: '',
     themeConfig: {
-        repo: 'jaiden-home',
+        repo: 'jaiden-home/www',
         docsRepo: 'jaiden-home/www',
         docsDir: 'blog',
         docsBranch: 'master',
@@ -36,15 +36,15 @@ module.exports = ctx => ({
                 ariaLabel: '选择语言',
                 editLinkText: '在 GitHub 上编辑此页',
                 lastUpdated: '上次更新',
-                nav: require('./nav/zh'),
+                nav: require('./nav/navigation'),
                 sidebar: {
                     '/note/':[
                         {
-                            title:'目录大纲',
+                            title:'指南',
                             collapsable: false,
                             children: [
                                 '',
-                                'ECMAScriptInterpreter',
+                                'Interpreter',
                                 'EventLoop',
                                 'BitOperation',
                                 'OOP'
@@ -78,7 +78,7 @@ module.exports = ctx => ({
         ['flowchart']
     ],
     extraWatchFiles: [
-        '.vuepress/nav/zh.js'
+        '.vuepress/nav/navigation.js'
     ]
 })
 

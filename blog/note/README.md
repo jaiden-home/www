@@ -1,7 +1,7 @@
 # 指南
 
 * JavaScript 引擎(ECMAScript Engine)
-  * [JavaScript 解析器(ECMAScript Interpreter)](./ECMAScriptInterpreter)
+  * [解析器(Interpreter)](./Interpreter)
   * [事件循环(Event Loop)](./EventLoop)
   * JavaScript API 实现原理(ECMAScript API)
 

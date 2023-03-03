@@ -5,7 +5,7 @@ module.exports = [
   },
   {
     text: '课堂视频',
-    link: 'https://www.jaiden.cn/video_course.html'
+    link: 'https://www.jaiden.cn/VideoCourse.html'
   },
   {
     text: '课件',

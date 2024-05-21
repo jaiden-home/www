@@ -1,5 +1,5 @@
 # 指南
-
+* TypeScript 教程(./TypeScript)
 * JavaScript 引擎(ECMAScript Engine)
   * [解析器(Interpreter)](./Interpreter)
   * [事件循环(Event Loop)](./EventLoop)

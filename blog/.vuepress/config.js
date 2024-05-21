@@ -44,6 +44,7 @@ module.exports = ctx => ({
                             collapsable: false,
                             children: [
                                 '',
+                                'TypeScript',
                                 'Interpreter',
                                 'EventLoop',
                                 'BitOperation',

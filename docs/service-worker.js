@@ -27,11 +27,11 @@ self.addEventListener('message', (event) => {
 self.__precacheManifest = [
   {
     "url": "404.html",
-    "revision": "e19875a9721134e10b502610a8692d3b"
+    "revision": "232311e215d27f777524b79cc13864d8"
   },
   {
-    "url": "assets/css/0.styles.f84bc4a7.css",
-    "revision": "27f6789c80a4516bdf7f30da6d948015"
+    "url": "assets/css/0.styles.770e0af4.css",
+    "revision": "b923061e8e848ddd3e1ba814a6277300"
   },
   {
     "url": "assets/img/clock-code.d0bff50a.png",
@@ -78,8 +78,8 @@ self.__precacheManifest = [
     "revision": "29ae04d952e23066893fb58c088f8394"
   },
   {
-    "url": "assets/js/11.75125999.js",
-    "revision": "9457f2d506d6f3dadaae4d1bf073e81d"
+    "url": "assets/js/11.53e19bee.js",
+    "revision": "d75d695b0fd89dbfd75f679c2c5ae7eb"
   },
   {
     "url": "assets/js/12.d3b0fb20.js",
@@ -98,16 +98,20 @@ self.__precacheManifest = [
     "revision": "df07610f466cd3d8321317921006fd7e"
   },
   {
-    "url": "assets/js/16.265db342.js",
-    "revision": "e572f3d6d3daa0804c70fec56f3d1d50"
+    "url": "assets/js/16.2561506c.js",
+    "revision": "d9fe5ef2c055cfebde15b85c9d9c7267"
   },
   {
-    "url": "assets/js/17.04677418.js",
-    "revision": "b6dc053366e4503614fa806233d7180c"
+    "url": "assets/js/17.8cd15550.js",
+    "revision": "90d79092fe428507c636a0bf904bcc3d"
   },
   {
-    "url": "assets/js/18.e2200278.js",
-    "revision": "7e593aee214cc7542047492c08f5fb1c"
+    "url": "assets/js/18.4a1ff80e.js",
+    "revision": "20febea70df1e90fbc138ae4674c84ee"
+  },
+  {
+    "url": "assets/js/19.f40c463a.js",
+    "revision": "ba2c59e7e69f2ac9b3ec0169cf041b0b"
   },
   {
     "url": "assets/js/3.971ef2e2.js",
@@ -126,20 +130,20 @@ self.__precacheManifest = [
     "revision": "0e49bfe663974ddb33d38fa33273633d"
   },
   {
-    "url": "assets/js/7.2e10a412.js",
-    "revision": "b153fc876dd6875277e09e33d9f2d454"
+    "url": "assets/js/7.2cd398db.js",
+    "revision": "6a63920b185617e85783ea86fc06cdff"
   },
   {
-    "url": "assets/js/8.b06da69f.js",
-    "revision": "c93a9a86e8d07a81bcfd3c28f024e958"
+    "url": "assets/js/8.08153b9d.js",
+    "revision": "5a040aae50e9baacc49c156887ecf236"
   },
   {
-    "url": "assets/js/9.b1641ed6.js",
-    "revision": "b8775dc2c7a00ee5d21c61f49b41c71c"
+    "url": "assets/js/9.f8310c1e.js",
+    "revision": "8bae07a18ea7b0c29c5a6d826ff505cc"
   },
   {
-    "url": "assets/js/app.4e67cf19.js",
-    "revision": "3ca226318b9b4e228d0dca6e33c52c98"
+    "url": "assets/js/app.c701c129.js",
+    "revision": "f06537a99b53ce23b9c06a0f79c1745f"
   },
   {
     "url": "assets/js/vendors~flowchart.cb4119d8.js",
@@ -147,7 +151,7 @@ self.__precacheManifest = [
   },
   {
     "url": "courseware/index.html",
-    "revision": "eaf40fd336782602181d81a1d4d68b67"
+    "revision": "799af24c23d3ee7a5a8e7b435cd80766"
   },
   {
     "url": "hero.jpg",
@@ -155,35 +159,39 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "6e36d802b9cd460a82db1f559574deb4"
+    "revision": "33857da75b9d1ec30ea9545eadc2a836"
   },
   {
     "url": "note/BitOperation.html",
-    "revision": "f293751942926b1522e52cd4dbc0c41c"
+    "revision": "74a7de663eed94506d7cdadbc9d5243e"
   },
   {
     "url": "note/BrowserStructure.html",
-    "revision": "05fe86c8fce3278e685e2f019df53f91"
+    "revision": "e48a8cfc8f970c148437c71706834832"
   },
   {
     "url": "note/EventLoop.html",
-    "revision": "46e3655b1c1fd95bfc041f0c5b27dad5"
+    "revision": "cb40ae2daeba0a3730648187944e473c"
   },
   {
     "url": "note/index.html",
-    "revision": "6d86d04112733a2a3c602917feff799e"
+    "revision": "0ccebe12db08b2fa08180668ded52c0b"
   },
   {
     "url": "note/Interpreter.html",
-    "revision": "9120fb4e2c50f21d8dec571934c83504"
+    "revision": "c0f2f8d0792664ac68506a530f6123ce"
   },
   {
     "url": "note/OOP.html",
-    "revision": "d54e9fbc6e33fd59614bf7b36a32f864"
+    "revision": "217a7a74121d67d570deee11bc1e6d9b"
+  },
+  {
+    "url": "note/TypeScript.html",
+    "revision": "90bd9729f7ff2c70aa08b7910b9c8fb5"
   },
   {
     "url": "resources/index.html",
-    "revision": "a2a9cd3f9ba1bc0ff63f050719376a87"
+    "revision": "c33ab5c3693aa5dfe1ec348c58dffc36"
   },
   {
     "url": "VideoCourse.html",
